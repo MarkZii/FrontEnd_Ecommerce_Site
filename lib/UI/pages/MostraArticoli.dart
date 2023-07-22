@@ -57,7 +57,7 @@ class _SearchState extends State<MostraArticoli> {
                   }
                 });
               },
-              buttonText: 'Cerca per genere',
+              buttonText: 'Cerca per tipologia',
             ),
               Padding(
                 padding: EdgeInsets.all(20),
@@ -120,7 +120,7 @@ class _SearchState extends State<MostraArticoli> {
   }
 
   Widget noResults() {
-    return Text("Nessun risultato disponibile");
+    return Text("Nessun prodotto disponibile");
   }
 
   Widget yesResults() {

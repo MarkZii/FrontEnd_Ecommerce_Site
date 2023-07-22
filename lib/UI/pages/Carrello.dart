@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:front_end_ecommerce/UI/widgets/ProductCardProdottoAcquistato.dart';
 import 'package:front_end_ecommerce/model/objects/ProdottoAcquisto.dart';
-
 import '../../model/Model.dart';
 import '../widgets/ClickableButton.dart';
+import '../widgets/MessaggioDialogo.dart';
 
 class Carrello extends StatefulWidget {
   const Carrello({required Key key}) : super(key: key);
@@ -83,27 +83,20 @@ class _CarrelloState extends State<Carrello> {
 
   Widget top() {
     return Padding(
-      padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+      padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
       child: Column(
         children: [
-          ClickableButton(
-            onClick: () {
+          ElevatedButton(
+            child: Text('Aggiorna'),
+            onPressed: () {
               _search();
+              print(_products);
+
             },
-            buttonText: 'Aggiorna',
-          ),
-          AnimatedOpacity(
-            opacity: _showMessage ? 1.0 : 0.0,
-            duration: Duration(milliseconds: 500),
-            child: Container(
-              padding: EdgeInsets.all(8),
-              color: Colors.yellow,
-              child: Text(
-                _message,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.white, backgroundColor: Colors.orangeAccent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(0.0),
               ),
             ),
           ),
@@ -125,17 +118,24 @@ class _CarrelloState extends State<Carrello> {
     );
   }
   Widget option() {
-    return Center(
-      child: TextButton(
+    return Padding(
+        padding: EdgeInsets.only(
+          top: 0.0,
+          left: 30.0,
+          right: 30.0,
+          bottom: 0.0,
+        ),
+      child:ElevatedButton(
+        child: Text('Acquista ora'),
         onPressed: () {
           _acquista();
         },
-        style: TextButton.styleFrom(
-          textStyle: TextStyle(fontSize: 20),
-          primary: Colors.blue,
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        style: ElevatedButton.styleFrom(
+          foregroundColor: Colors.white, backgroundColor: Colors.orangeAccent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(0.0),
+          ),
         ),
-        child: Text("Acquista ora"+". Prezzo totale: "+totale.toString()+"€."),
       ),
     );
   }
@@ -153,7 +153,7 @@ class _CarrelloState extends State<Carrello> {
   }
 
   Widget noResults() {
-    return Text('No_results!');
+    return Text('      Non ci sono prodotti da mostare.');
   }
 
   Widget yesResults() {
@@ -174,18 +174,37 @@ class _CarrelloState extends State<Carrello> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
 
-        child: Column(
-          children: [
+        children: [
             back(),
-            option(),
-            top(),
-            bottom(),
+            Padding(
+              padding: EdgeInsets.only(
+                top: 3.0,
+                left: 30.0,
+                right: 30.0,
+                bottom: 3.0,
+              ),
+              child: Row(
+                children: [
+                  Text(
+                    "Carrello con totale spesa: "+totale.toString()+"€.",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue,
+                    ),
+                  ),
+                  option(),
+                  top(),
+                  bottom(),
+                ],
+              ),
+            ),
           ],
         ),
-      ),
-    );
+      );
   }
 
   @override

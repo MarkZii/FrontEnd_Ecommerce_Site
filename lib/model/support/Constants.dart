@@ -23,7 +23,7 @@ class Constants {
   static final String REQUEST_VIEW_CARELLO = "/api/carrello/visualizza";
   static final String REQUEST_ADD_CARELLO = "api/carrello/aggiungi";
   static final String REQUEST_REMOVE_CARELLO = "api/carrello/rimuovi";
-  static final String REQUEST_ACQUISTA = "";
+  static final String REQUEST_ACQUISTA = "api/carrello/acquisto";
   static final String REQUEST_VIEW_AQUISTI = "/prodotti";
   static final String REQUEST_ADD_CLIENTE = "api/registrazione";
 

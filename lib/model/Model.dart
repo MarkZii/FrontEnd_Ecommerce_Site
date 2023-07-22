@@ -55,7 +55,7 @@ class Model {
       Map<String, String> params = Map();
       params["grant_type"] = "refresh_token";
       params["client_id"] = Constants.CLIENT_ID;
-      //params["client_secret"] = Constants.CLIENT_SECRET;
+      params["client_secret"] = Constants.CLIENT_SECRET;
       params["refresh_token"] = _authenticationData!.refreshToken;
       String result = await _restManager.makePostRequest(Constants.ADDRESS_AUTHENTICATION_SERVER, Constants.REQUEST_LOGIN, params, type: TypeHeader.urlencoded);
       _authenticationData = Autenticazione.fromJson(jsonDecode(result));
@@ -155,8 +155,9 @@ class Model {
     Map<String, String> params = Map();
     try {
       String result = await _restManager.makePostRequest(Constants.ADDRESS_ECOMMERCE_SERVER, Constants.REQUEST_ACQUISTA, params, type: TypeHeader.urlencoded);
-      Acquisto a= Acquisto.fromJson(jsonDecode(result));
-      if (a==null ) {
+      //Acquisto a= Acquisto.fromJson(jsonDecode(result));
+      print(result);
+      if (result == "" ) {
         return false;
       }
       return true;
@@ -243,9 +244,4 @@ class Model {
       return null; // not the best solution
     }
   }
-
-
-
-
-
 }
