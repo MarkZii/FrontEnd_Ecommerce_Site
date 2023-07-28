@@ -212,6 +212,21 @@ class Model {
       return []; // not the best solution
     }
   }
+
+  /*Future<List<Prodotto>?> searchDatePurchase(List<DateTime> date) async {
+    Map<String, String> params = Map();
+    params["genere"] = genere;
+    try {
+      String lista=await _restManager.makeGetRequest(Constants.ADDRESS_ECOMMERCE_SERVER, Constants.REQUEST_VIEW_PRODOTTI_CATEGORIA, params);
+      //print(lista);
+      List<Prodotto> lista2=List<Prodotto>.from(json.decode(lista).map((i) => Prodotto.fromJson(i)).toList());
+      //print(lista2);
+      return lista2;
+    }
+    catch (e) {
+      return [];
+    }
+  }*/
   Future<List<Acquisto>?> searchAllPurchase() async {
     Map<String, String> params = Map();
     try {

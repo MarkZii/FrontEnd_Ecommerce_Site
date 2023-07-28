@@ -6,10 +6,6 @@ import '../../model/objects/ProdottoAcquisto.dart';
 
 class ProductCardProdottoAcquistato extends StatefulWidget {
 
-  //TextEditingController _textEditingController = TextEditingController();
-
-  //ProductCardProdottoAcquistato({required Key key, required this.product}) : super(key: key);
-
 
   final ProdottoAcquisto product;
   final int quantita;

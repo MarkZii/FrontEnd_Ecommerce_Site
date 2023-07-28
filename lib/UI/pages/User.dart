@@ -2,17 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:front_end_ecommerce/UI/widgets/ProductCardProdottoAcquistato.dart';
 import 'package:front_end_ecommerce/model/objects/Acquisto.dart';
-import 'package:front_end_ecommerce/model/objects/ProdottoAcquisto.dart';
 import '../../model/Model.dart';
-import '../../model/objects/Acquisto.dart';
 import '../widgets/AcquistoSpecifiche.dart';
 import '../widgets/ClickableButton.dart';
 import '../widgets/InputField.dart';
-import '../widgets/MessaggioDialogo.dart';
-import '../widgets/ProdottoSpecifiche.dart';
 import '../widgets/SquareIconButton.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class User extends StatefulWidget {
   const User({required Key key}) : super(key: key);
@@ -22,6 +18,7 @@ class User extends StatefulWidget {
 }
 
 class _UserState extends State<User> {
+  late DateTime selectedDateTime;
   bool _searching = false;
   bool filtroAttivo = false;
   List<Acquisto> _acquisti = [];
@@ -67,6 +64,7 @@ class _UserState extends State<User> {
             children: [
               ClickableButton(
                 onClick: () {
+                  _selectDateTime();
                   // Azione da eseguire quando il pulsante viene cliccato
                   setState(() {
                     if (filtroAttivo == true) {
@@ -74,7 +72,9 @@ class _UserState extends State<User> {
                     } else {
                       filtroAttivo = true;
                     }
+
                   });
+
                 },
                 buttonText: 'Fitra per data',
               ),
@@ -100,6 +100,7 @@ class _UserState extends State<User> {
           ),
           Row(
               children: [
+
                 Flexible(
                   child: InputField(
                     key: UniqueKey(),
@@ -124,6 +125,24 @@ class _UserState extends State<User> {
       ),
     );
 
+  }
+  _selectDateTime() {
+    DatePicker.showDateTimePicker(
+      context,
+      showTitleActions: true,
+      minTime: DateTime(2022, 1, 1),
+      maxTime: DateTime(2025, 12, 31),
+      onChanged: (date) {
+        print('change $date');
+      },
+      onConfirm: (date) {
+        setState(() {
+          selectedDateTime = date;
+        });
+      },
+      currentTime: DateTime.now(),
+      locale: LocaleType.it,
+    );
   }
 
   Widget bottom() {
@@ -165,23 +184,13 @@ class _UserState extends State<User> {
       _searching = true;
       _acquisti = [];
     });
-
-    /*if (filtroAttivo == false) {
-      Model.sharedInstance.searchProduct(_searchFiledController.text).then((result) {
-        setState(() {
-          _searching = false;
-          _acquisti = result!;
-        });
+    print(filtroAttivo);
+    /*Model.sharedInstance.searchProductByGenere(_searchFiledController.text).then((result) {
+      setState(() {
+        _searching = false;
+        _acquisti = result!;
       });
-    } else {
-      print(filtroAttivo);
-      Model.sharedInstance.searchProductByGenere(_searchFiledController.text).then((result) {
-        setState(() {
-          _searching = false;
-          _acquisti = result!;
-        });
-      });
-    }*/
+    });*/
   }
   void _searchAll() {
     setState(() {

@@ -1,25 +1,31 @@
+import 'dart:convert';
+
 import 'ProdottoAcquisto.dart';
 import 'Utente.dart';
 
 class Acquisto {
   int id;
-  //DateTime data;
+  DateTime data;
   Utente utente;
-  ProdottoAcquisto prodottoAcquisto;
+  List<ProdottoAcquisto> prodottoAcquisto;
 
-  Acquisto({ required this.id/*, required this.data*/, required this.utente, required this.prodottoAcquisto});
+  Acquisto({ required this.id, required this.data, required this.utente, required this.prodottoAcquisto});
 
   factory Acquisto.fromJson(Map<String, dynamic> json) {
-    /*DateTime dt = DateTime(2000, 1, 1, 00, 01);
-    if(json["data"] != null) {
-      List<dynamic> data = json["data"];
-      dt = DateTime(data[0], data[1], data[2]);
-    }*/
+    int timestamp = json["data"];
+    print(timestamp);
+    print(DateTime.fromMillisecondsSinceEpoch(timestamp),);
+
+    var itemList = json['prodottoAcquisto'] as List;
+    List<ProdottoAcquisto> prodotti = itemList.map((prodottoAcquisto) => ProdottoAcquisto.fromJson(prodottoAcquisto)).toList();
+
     return Acquisto(
       id: json['id'],
-      //data: dt,
+        data: DateTime.fromMillisecondsSinceEpoch(timestamp),
+        //data: dt,
       utente: Utente.fromJson(json['utente']),
-        prodottoAcquisto: ProdottoAcquisto.fromJson(json['prodottoAcquisto'])
+      //prodottoAcquisto: [ProdottoAcquisto.fromJson(json['prodottoAcquisto'])],
+        prodottoAcquisto: prodotti
     );
   }
 
@@ -27,13 +33,13 @@ class Acquisto {
 
   Map<String, dynamic> toJson() => {
     'id': id,
-    //'data': dataA==null? null :dataA!.toIso8601String(),
+    'data': dataA==null? null :dataA!.toIso8601String(),
     'utente': utente,
-    'prodottoAcquisto': prodottoAcquisto.toJson()
+    //'prodottoAcquisto': prodottoAcquisto.toJson()
   };
 
   @override
   String toString() {
-    return id.toString();
+    return id.toString()+data.toString();
   }
 }
