@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../../UI/pages/ChiSiamo.dart';
 import 'package:front_end_ecommerce/model/support/Constants.dart';
 import 'ChiSiamo2.dart';
+import 'User.dart';
 //import 'Acquisti.dart';
 
 
@@ -54,6 +55,7 @@ class _LayoutState extends State<Home> {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
+
           backgroundColor: Colors.transparent,
           elevation: 0,
           shape: RoundedRectangleBorder(
@@ -98,6 +100,15 @@ class _LayoutState extends State<Home> {
                             MaterialPageRoute(builder: (context) => Carrello(key: UniqueKey(),)),
                           );
                         }),
+                    IconButton(
+                        icon: Icon(Icons.account_circle),
+                        color: Colors.grey,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => User(key: UniqueKey(),)),
+                          );
+                        }),
                     /*AnimatedOpacity(
                       opacity: _showMessage ? 1.0 : 0.0,
                       duration: Duration(milliseconds: 500),
@@ -119,12 +130,13 @@ class _LayoutState extends State<Home> {
             ],
           ),
           bottom: TabBar(
-
+            indicatorColor: Colors.orangeAccent,
             /**
              * La tabBar rappresenta la barra delle schede, e mostra le etichette
              * alle pagine. E viene visualizzato nel bottom dell'appbar.
              */
             labelColor: Colors.black,
+
 
             tabs: [
               Tab(text:"Home"),

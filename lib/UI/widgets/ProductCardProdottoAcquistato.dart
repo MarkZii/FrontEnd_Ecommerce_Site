@@ -141,7 +141,9 @@ class _ProductCartProdottoAcquistatoState extends State<ProductCardProdottoAcqui
                           padding: EdgeInsets.all(15.0),
                           child:ElevatedButton(
                             child: Text('Aggiorna quantita'),
-                            onPressed: aggiornaQuantita,
+                            onPressed: () {
+                              aggiornaQuantita();
+                            },
                             style: ElevatedButton.styleFrom(
                               foregroundColor: Colors.white, backgroundColor: Colors.orangeAccent,
                               shape: RoundedRectangleBorder(
@@ -154,7 +156,9 @@ class _ProductCartProdottoAcquistatoState extends State<ProductCardProdottoAcqui
                           padding: EdgeInsets.all(15.0),
                           child:ElevatedButton(
                             child: Text('Rimuovi prodotto'),
-                            onPressed: rimuoviArticolo,
+                            onPressed: () {
+                              rimuoviArticolo();
+                            },
                             style: ElevatedButton.styleFrom(
                               foregroundColor: Colors.white, backgroundColor: Colors.orangeAccent,
                               shape: RoundedRectangleBorder(
@@ -174,13 +178,13 @@ class _ProductCartProdottoAcquistatoState extends State<ProductCardProdottoAcqui
   }
 
   void aggiornaQuantita() {
-    if(_quantita>_product!.quantita!)return;
+    //if(_quantita>_product!.quantita!)return;
     print(_quantita);
     Model.sharedInstance.rimuoviDaCarrello(_product!.prodotto.id, _quantita);
     //initState();
   }
   void rimuoviArticolo() {
-    if(_quantita>_product!.quantita!)return;
+    //if(_quantita>_product!.quantita!)return;
     print(_quantita);
     Model.sharedInstance.rimuoviDaCarrello(_product!.prodotto.id, 0);
     initState();

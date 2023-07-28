@@ -1,13 +1,16 @@
 import 'package:front_end_ecommerce/model/objects/Prodotto.dart';
 import 'package:front_end_ecommerce/UI/widgets/WidgetAcquisto.dart';
 import 'package:flutter/material.dart';
+import 'package:front_end_ecommerce/model/objects/ProdottoAcquisto.dart';
+
+import '../../model/objects/Acquisto.dart';
 
 
-class ProdottoSpecifiche extends StatelessWidget {
-  final Prodotto prodotto;
+class AcquistoSpecifiche extends StatelessWidget {
+  final Acquisto acquisto;
 
 
-  ProdottoSpecifiche({required Key key, required this.prodotto}) : super(key: key);
+  AcquistoSpecifiche({required Key key, required this.acquisto}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,29 +36,15 @@ class ProdottoSpecifiche extends StatelessWidget {
 
                   children: [
                     Text(
-                      "Nome: "+prodotto.nome,
+                      "Utente: "+acquisto.utente.codiceFiscale,
                       style: TextStyle(
-                        fontSize: 28,
+                        fontSize: 20,
                         color: Theme.of(context).primaryColor,
                       ),
                     ),
 
                     Text(
-                      "CB: "+prodotto.codiceBarre,
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                    Text(
-                      "Quantità disponibile: "+prodotto.quantita.toString(),
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                    Text(
-                      "Categoria: "+prodotto.categoria.nome,
+                      "Data: "/*+acquisto.data.toString()*/,
                       style: TextStyle(
                         fontSize: 15,
                         color: Theme.of(context).primaryColor,
@@ -63,13 +52,6 @@ class ProdottoSpecifiche extends StatelessWidget {
                     ),
                   ],
                 ),
-                WidgetAcquisto(
-                  key: UniqueKey(),
-                  id: prodotto.id,
-                  quantita: prodotto.quantita,
-                  codiceBarre: prodotto.codiceBarre,
-                  prezzo: prodotto.prezzo!,
-                )
               ],
             ),
           )

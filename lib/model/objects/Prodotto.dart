@@ -8,12 +8,12 @@ class Prodotto {
   double prezzo;
   int quantita;
   String? descrizione;
-  //Categoria categoria;
+  Categoria categoria;
   double versione;
 
 
   Prodotto({ required this.id, required this.nome, required this.codiceBarre, required this.prezzo, required this.quantita,
-    this.descrizione, /*required this.categoria*/ required this.versione});
+    this.descrizione, required this.categoria, required this.versione});
 
   factory Prodotto.fromJson(Map<String, dynamic> json) {
     return Prodotto(
@@ -23,8 +23,8 @@ class Prodotto {
       prezzo: json['prezzo'],
       quantita: json['quantita'],
       descrizione: json['descrizione'],
-      //categoria: json['categoria'],
-      versione: json['versione'],
+      categoria: Categoria.fromJson(json['categoria']),
+      versione: json['versione']
     );
   }
 
@@ -35,7 +35,7 @@ class Prodotto {
     'prezzo': prezzo,
     'quantita': quantita,
     'descrizione': descrizione,
-    //'categoria': categoria,
+    'categoria': categoria.toJson(),
     'versione': versione
   };
 

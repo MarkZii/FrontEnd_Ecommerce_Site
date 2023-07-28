@@ -1,7 +1,7 @@
 class Constants {
   // app info
   static final String APP_VERSION = "0.0.1";
-  static final String APP_NAME = "Autoricambi";
+  static final String APP_NAME = "Lineasette";
 
   // addresses
   static final String ADDRESS_ECOMMERCE_SERVER = "localhost:8081";
@@ -17,12 +17,13 @@ class Constants {
   static final String RUOLO_ADMIN="admin";
 
   // requests
+  static final String REQUEST_VIEW_ACQUISTI = "/api/acquisti/tutti";
   static final String REQUEST_VIEW_PRODOTTI = "/api/prodotti/getall";
   static final String REQUEST_VIEW_PRODOTTI_NOME = "/api/prodotti/ricercaNome";
   static final String REQUEST_VIEW_PRODOTTI_CATEGORIA = "/api/prodotti/ricercaCategoria";
   static final String REQUEST_VIEW_CARELLO = "/api/carrello/visualizza";
   static final String REQUEST_ADD_CARELLO = "api/carrello/aggiungi";
-  static final String REQUEST_REMOVE_CARELLO = "api/carrello/rimuovi";
+  static final String REQUEST_REMOVE_CARELLO = "api/carrello/aggiorna";
   static final String REQUEST_ACQUISTA = "api/carrello/acquisto";
   static final String REQUEST_VIEW_AQUISTI = "/prodotti";
   static final String REQUEST_ADD_CLIENTE = "api/registrazione";

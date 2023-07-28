@@ -69,21 +69,26 @@ class _CarrelloState extends State<Carrello> {
         _products = [];
 
         String message;
-        if (result == true) {
+        /*if (result == true) {
           message = 'Acquisto eseguito';
         } else {
           //print("result: "+result.toString());
           message = 'Acquisto NON eseguito';
-        }
+        }*/
 
-        mostraMessaggioTemporaneo(message);
+        mostraMessaggioTemporaneo(result);
       });
     });
   }
 
   Widget top() {
     return Padding(
-      padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+      padding: EdgeInsets.only(
+        top: 3.0,
+        left: 30.0,
+        right: 30.0,
+        bottom: 0.0,
+      ),
       child: Column(
         children: [
           ElevatedButton(
@@ -98,8 +103,10 @@ class _CarrelloState extends State<Carrello> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(0.0),
               ),
+
             ),
           ),
+
         ],
       ),
     );
@@ -125,18 +132,43 @@ class _CarrelloState extends State<Carrello> {
           right: 30.0,
           bottom: 0.0,
         ),
-      child:ElevatedButton(
-        child: Text('Acquista ora'),
-        onPressed: () {
-          _acquista();
-        },
-        style: ElevatedButton.styleFrom(
-          foregroundColor: Colors.white, backgroundColor: Colors.orangeAccent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(0.0),
+      child: Row(
+        children: [
+          ElevatedButton(
+            child: Text('Acquista ora'),
+              onPressed: () {
+                _acquista();
+              },
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white, backgroundColor: Colors.orangeAccent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0.0),
+                ),
+              ),
+            ),
+          AnimatedOpacity(
+            opacity: _showMessage ? 1.0 : 0.0,
+            duration: Duration(milliseconds: 500),
+            child: Container(
+              padding: EdgeInsets.only(
+                top: 0.0,
+                left: 10.0,
+                right: 0.0,
+                bottom: 0.0,
+              ),
+              color: Colors.yellow,
+              child: Text(
+                _message,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ),
-        ),
+        ],
       ),
+
     );
   }
 
@@ -170,8 +202,36 @@ class _CarrelloState extends State<Carrello> {
       ),
     );
   }
-
   @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          back(),
+          Padding(
+            padding: EdgeInsets.only(
+              top: 3.0,
+              left: 30.0,
+              right: 30.0,
+              bottom: 0.0,
+            ),
+            child: Text("Carrello con totale spesa: "+totale.toString()+"€.",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.blue,
+              ),
+            ),
+          ),
+          option(),
+          top(),
+          bottom(),
+        ],
+      ),
+    );
+  }
+  /*@override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
@@ -205,7 +265,7 @@ class _CarrelloState extends State<Carrello> {
           ],
         ),
       );
-  }
+  }*/
 
   @override
   void initState() {

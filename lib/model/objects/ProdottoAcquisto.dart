@@ -18,7 +18,7 @@ class ProdottoAcquisto{
   Map<String, dynamic> toJson() => {
     'id':id,
     'quantita':quantita,
-    'prodotto': prodotto
+    'prodotto': prodotto.toJson()
   };
 
   @override

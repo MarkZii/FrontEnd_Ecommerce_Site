@@ -113,22 +113,24 @@ class Model {
     }
   }
 
-  Future<bool> aggiungiAlCarrello(int id, int quantity) async {
+  Future<String> aggiungiAlCarrello(int id, int quantity) async {
     Map<String, String> params = Map();
     params["id"]=id.toString();
     params["quantita"] = quantity.toString();
+    String result = "ERRORE intenro";
     try {
-      String result = await _restManager.makeGetRequest(Constants.ADDRESS_ECOMMERCE_SERVER, Constants.REQUEST_ADD_CARELLO, params);
+      result = await _restManager.makeGetRequest(Constants.ADDRESS_ECOMMERCE_SERVER, Constants.REQUEST_ADD_CARELLO, params);
+      print("FANCULO"+result);
       print(result);
       //Acquisto a = Acquisto.fromJson(jsonDecode(result));
       if ( result == "") {
-        return false;
+        return "Cortesemente accedere";
       }
       //_restManager.token = _authenticationData!.accessToken;
-      return true;
+      return result;
     }
     catch (e) {
-      return false; // not the best solution
+      return result; // not the best solution
     }
   }
 
@@ -151,19 +153,20 @@ class Model {
   }
 
 
-  Future<bool> acquista() async {
+  Future<String> acquista() async {
     Map<String, String> params = Map();
+    String result = "Errore interno";
     try {
-      String result = await _restManager.makePostRequest(Constants.ADDRESS_ECOMMERCE_SERVER, Constants.REQUEST_ACQUISTA, params, type: TypeHeader.urlencoded);
+      result = await _restManager.makePostRequest(Constants.ADDRESS_ECOMMERCE_SERVER, Constants.REQUEST_ACQUISTA, params, type: TypeHeader.urlencoded);
       //Acquisto a= Acquisto.fromJson(jsonDecode(result));
       print(result);
-      if (result == "" ) {
+      /*if (result == "" ) {
         return false;
-      }
-      return true;
+      }*/
+      return result;
     }
     catch (e) {
-      return false;
+      return result;
     }
   }
 
@@ -200,9 +203,23 @@ class Model {
     Map<String, String> params = Map();
     try {
       String lista=await _restManager.makeGetRequest(Constants.ADDRESS_ECOMMERCE_SERVER, Constants.REQUEST_VIEW_PRODOTTI, params);
-      //print(lista);
+      print(lista);
       List<Prodotto> lista2=List<Prodotto>.from(json.decode(lista).map((i) => Prodotto.fromJson(i)).toList());
-      //print(lista2);
+      print(lista2);
+      return lista2;
+    }
+    catch (e) {
+      return []; // not the best solution
+    }
+  }
+  Future<List<Acquisto>?> searchAllPurchase() async {
+    Map<String, String> params = Map();
+    try {
+      String lista=await _restManager.makeGetRequest(Constants.ADDRESS_ECOMMERCE_SERVER, Constants.REQUEST_VIEW_ACQUISTI, params);
+      print(lista);
+      List<Acquisto> lista2=List<Acquisto>.from(json.decode(lista).map((i) => Acquisto.fromJson(i)).toList());
+      print("ciao");
+      print(lista2);
       return lista2;
     }
     catch (e) {

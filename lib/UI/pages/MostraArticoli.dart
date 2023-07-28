@@ -12,6 +12,7 @@ import '../widgets/ProdottoSpecifiche.dart';
 
 class MostraArticoli extends StatefulWidget {
   const MostraArticoli({required Key key}) : super(key: key);
+
   @override
   _SearchState createState() => _SearchState();
 }
@@ -19,7 +20,9 @@ class MostraArticoli extends StatefulWidget {
 class _SearchState extends State<MostraArticoli> {
   bool _searching = false;
   bool filtroAttivo = false;
+  int paginaCorrente = 0;
   List<Prodotto> _products = [];
+  late int? pagineTotali;
 
   TextEditingController _searchFiledController = TextEditingController(); //controller area di testo
 
@@ -94,6 +97,8 @@ class _SearchState extends State<MostraArticoli> {
                 ),
                 SquareIconButton(
                   key: UniqueKey(),
+                  //_countNumPagine();
+                  //paginaCorrente = 0;
                   icon: Icons.search_rounded,
                   onPressed: () {
                     _search();
@@ -140,6 +145,60 @@ class _SearchState extends State<MostraArticoli> {
     );
   }
 
+  /*Widget yesResults() {
+    return Scrollbar(
+        child: Column(
+            children: [
+              Container(
+                height: 340,
+                child:
+                PageView.builder(
+                  itemCount: pagineTotali, // Numero totale di pagine
+                  itemBuilder: (context, paginaCorrente) {
+                    return ListView.builder(
+                      itemCount: _products.length,
+                      itemBuilder: (context, index) {
+                        Prodotto prod = _products[index];
+                        return ProdottoSpecifiche(
+                          key: UniqueKey(),
+                          prodotto: _products[index],
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: () {
+                      setState(() {
+                        paginaCorrente =
+                        paginaCorrente > 0 ? paginaCorrente - 1 : 0;
+                        _search();
+                      });
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.arrow_forward),
+                    onPressed: () {
+                      setState(() {
+                        paginaCorrente = paginaCorrente < pagineTotali! - 1
+                            ? paginaCorrente + 1
+                            : paginaCorrente;
+                        _search();
+                      });
+                    },
+                  ),
+                ],
+              )
+            ]
+        )
+    );
+  }*/
+
   void _search() {
     setState(() {
       _searching = true;
@@ -175,4 +234,11 @@ class _SearchState extends State<MostraArticoli> {
         });
       });
   }
+  /*void _countNumPagine() {
+    Model.sharedInstance.getNumPagine(_searchFieldController.text)?.then((ris) {
+      setState(() {
+        pagineTotali = ris;
+      });
+    });
+  }*/
 }

@@ -81,11 +81,11 @@ class _WidgetAcquistoState extends State<WidgetAcquisto> {
       Model.sharedInstance.aggiungiAlCarrello(_id, _quantita).then((risultato){
         setState(() {
           String message;
-          if (risultato == true) {
+          if (risultato == "true") {
             message = 'Aggiunto al carrello!';
           } else {
-            //print("result: "+result.toString());
-            message = 'NON aggiunto al carrello';
+            print("result: "+risultato.toString());
+            message = risultato;
           }
 
           mostraMessaggioTemporaneo(message);
@@ -108,9 +108,9 @@ class _WidgetAcquistoState extends State<WidgetAcquisto> {
     return Row(
       children: [
         Text(
-          "                Prezzo tatale: "+(prezzo*_quantita).toString()+"€                ",
+          "   prezzo tatale: "+(prezzo*_quantita).toString()+"€ ",
           style: TextStyle(
-            fontSize: 20,
+            fontSize: 18,
             color: Theme.of(context).primaryColor,
           ),
         ),
