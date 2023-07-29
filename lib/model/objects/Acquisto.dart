@@ -5,14 +5,14 @@ import 'Utente.dart';
 
 class Acquisto {
   int id;
-  DateTime data;
+  DateTime purchaseTime;
   Utente utente;
   List<ProdottoAcquisto> prodottoAcquisto;
 
-  Acquisto({ required this.id, required this.data, required this.utente, required this.prodottoAcquisto});
+  Acquisto({ required this.id, required this.purchaseTime, required this.utente, required this.prodottoAcquisto});
 
   factory Acquisto.fromJson(Map<String, dynamic> json) {
-    int timestamp = json["data"];
+    int timestamp = json["purchaseTime"];
     print(timestamp);
     print(DateTime.fromMillisecondsSinceEpoch(timestamp),);
 
@@ -21,7 +21,7 @@ class Acquisto {
 
     return Acquisto(
       id: json['id'],
-        data: DateTime.fromMillisecondsSinceEpoch(timestamp),
+        purchaseTime: DateTime.fromMillisecondsSinceEpoch(timestamp),
         //data: dt,
       utente: Utente.fromJson(json['utente']),
       //prodottoAcquisto: [ProdottoAcquisto.fromJson(json['prodottoAcquisto'])],
@@ -40,6 +40,6 @@ class Acquisto {
 
   @override
   String toString() {
-    return id.toString()+data.toString();
+    return id.toString()+purchaseTime.toString();
   }
 }

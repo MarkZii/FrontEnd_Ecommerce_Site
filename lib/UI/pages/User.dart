@@ -8,7 +8,7 @@ import '../widgets/AcquistoSpecifiche.dart';
 import '../widgets/ClickableButton.dart';
 import '../widgets/InputField.dart';
 import '../widgets/SquareIconButton.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+//import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class User extends StatefulWidget {
   const User({required Key key}) : super(key: key);
@@ -62,9 +62,9 @@ class _UserState extends State<User> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ClickableButton(
+              /*ClickableButton(
                 onClick: () {
-                  _selectDateTime();
+                  //_selectDateTime();
                   // Azione da eseguire quando il pulsante viene cliccato
                   setState(() {
                     if (filtroAttivo == true) {
@@ -77,7 +77,7 @@ class _UserState extends State<User> {
 
                 },
                 buttonText: 'Fitra per data',
-              ),
+              ),*/
               Padding(
                 padding: EdgeInsets.all(20),
                 child: ElevatedButton(
@@ -98,7 +98,7 @@ class _UserState extends State<User> {
               ),
             ],
           ),
-          Row(
+          /*Row(
               children: [
 
                 Flexible(
@@ -120,13 +120,13 @@ class _UserState extends State<User> {
                   },
                 ),
               ]
-          ),
+          ),*/
         ],
       ),
     );
 
   }
-  _selectDateTime() {
+  /*_selectDateTime() {
     DatePicker.showDateTimePicker(
       context,
       showTitleActions: true,
@@ -143,7 +143,7 @@ class _UserState extends State<User> {
       currentTime: DateTime.now(),
       locale: LocaleType.it,
     );
-  }
+  }*/
 
   Widget bottom() {
     if (_searching) {
@@ -179,19 +179,19 @@ class _UserState extends State<User> {
     );
   }
 
-  void _search() {
+  /*void _search() {
     setState(() {
       _searching = true;
       _acquisti = [];
     });
     print(filtroAttivo);
-    /*Model.sharedInstance.searchProductByGenere(_searchFiledController.text).then((result) {
+    Model.sharedInstance.searchProductByGenere(_searchFiledController.text).then((result) {
       setState(() {
         _searching = false;
         _acquisti = result!;
       });
-    });*/
-  }
+    });
+  }*/
   void _searchAll() {
     setState(() {
       _searching = true;

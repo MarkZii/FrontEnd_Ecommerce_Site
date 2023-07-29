@@ -22,7 +22,7 @@ class _CarrelloState extends State<Carrello> {
   double totale=0;
   List<ProdottoAcquisto> _products = [];
 
-  void mostraMessaggioTemporaneo(String messaggio) {
+  /*void mostraMessaggioTemporaneo(String messaggio) {
     setState(() {
       _message = messaggio;
       _showMessage = true;
@@ -33,7 +33,7 @@ class _CarrelloState extends State<Carrello> {
         _showMessage = false;
       });
     });
-  }
+  }*/
 
   void _search() {
     setState(() {
@@ -68,15 +68,22 @@ class _CarrelloState extends State<Carrello> {
         _searching = false;
         _products = [];
 
-        String message;
-        /*if (result == true) {
+        showDialog(
+          context: context,
+          builder: (context) => MessaggioDialogo(
+            titleText: "Message",
+            bodyText: result,
+          ),
+        );
+        /*String message;
+        if (result == true) {
           message = 'Acquisto eseguito';
         } else {
           //print("result: "+result.toString());
           message = 'Acquisto NON eseguito';
         }*/
 
-        mostraMessaggioTemporaneo(result);
+        //mostraMessaggioTemporaneo(result);
       });
     });
   }

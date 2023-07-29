@@ -80,6 +80,8 @@ class _WidgetAcquistoState extends State<WidgetAcquisto> {
       print(_quantita);
       Model.sharedInstance.aggiungiAlCarrello(_id, _quantita).then((risultato){
         setState(() {
+
+
           String message;
           if (risultato == "true") {
             message = 'Aggiunto al carrello!';

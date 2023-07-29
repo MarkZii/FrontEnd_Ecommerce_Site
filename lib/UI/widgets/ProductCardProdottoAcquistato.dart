@@ -92,7 +92,7 @@ class _ProductCartProdottoAcquistatoState extends State<ProductCardProdottoAcqui
                               ),
                             ),
                             Text(
-                              "Prezzo totale: "+_product!.prodotto.prezzo.toString(),
+                              "Prezzo totale: "+_product!.prezzo.toString(),
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Theme.of(context).primaryColor,

@@ -45,7 +45,7 @@ class AcquistoSpecifiche extends StatelessWidget {
                     ),
 
                     Text(
-                      "Data: "+acquisto.data.toString(),
+                      "Data: "+acquisto.purchaseTime.toString(),
                       style: TextStyle(
                         fontSize: 15,
                         color: Theme.of(context).primaryColor,

@@ -41,7 +41,6 @@ class ChiSiamo extends StatelessWidget {
                 // In this case, we want the text to be center-aligned.
               ),
               textAlign: TextAlign.left,
-
             ),
           ],
         ),
