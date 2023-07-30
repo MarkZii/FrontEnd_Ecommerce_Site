@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../../model/Model.dart';
+import 'MessaggioDialogo.dart';
 
 class WidgetAcquisto extends StatefulWidget {
 
@@ -33,7 +34,7 @@ class _WidgetAcquistoState extends State<WidgetAcquisto> {
   bool _showMessage = false;
   String _message = '';
 
-  void mostraMessaggioTemporaneo(String messaggio) {
+  /*void mostraMessaggioTemporaneo(String messaggio) {
     setState(() {
       _message = messaggio;
       _showMessage = true;
@@ -44,17 +45,17 @@ class _WidgetAcquistoState extends State<WidgetAcquisto> {
         _showMessage = false;
       });
     });
-  }
+  }*/
 
 
 
 
   _WidgetAcquistoState(int quantita, String codiceBarre, double prezzo, int id) {
     this._id=id;
-    this._quantita = quantita;
+    this._quantita = 1;
     this._codiceBarre = codiceBarre;
     this.prezzo=prezzo;
-    _textEditingController.text = _quantita.toString();
+    _textEditingController.text = "1";
   }
 
   void incrementaQuantita() {
@@ -81,16 +82,31 @@ class _WidgetAcquistoState extends State<WidgetAcquisto> {
       Model.sharedInstance.aggiungiAlCarrello(_id, _quantita).then((risultato){
         setState(() {
 
-
-          String message;
+          //String message;
           if (risultato == "true") {
-            message = 'Aggiunto al carrello!';
+            showDialog(
+              context: context,
+              builder: (context) =>
+                  MessaggioDialogo(
+                    titleText: "Perfetto",
+                    bodyText: "Prodotto aggiunto al carrello",
+                  ),
+            );
+            //message = 'Aggiunto al carrello!';
           } else {
-            print("result: "+risultato.toString());
-            message = risultato;
+            showDialog(
+              context: context,
+              builder: (context) =>
+                  MessaggioDialogo(
+                    titleText: "Ooops",
+                    bodyText: risultato.toString(),
+                  ),
+            );
+            //print("result: "+risultato.toString());
+            //message = risultato;
           }
 
-          mostraMessaggioTemporaneo(message);
+          //mostraMessaggioTemporaneo(message);
         });
       });
 
@@ -167,7 +183,6 @@ class _WidgetAcquistoState extends State<WidgetAcquisto> {
             ),
           ),
         ),
-
       ],
     );
   }

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../../model/Model.dart';
 import '../../model/objects/ProdottoAcquisto.dart';
+import '../pages/Carrello.dart';
+import 'MessaggioDialogo.dart';
 
 class ProductCardProdottoAcquistato extends StatefulWidget {
 
@@ -78,7 +80,7 @@ class _ProductCartProdottoAcquistatoState extends State<ProductCardProdottoAcqui
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "CB: "+_product!.prodotto.codiceBarre,
+                              "Cod. a barre: "+_product!.prodotto.codiceBarre,
                               style: TextStyle(
                                 fontSize: 20,
                                 color: Theme.of(context).primaryColor,
@@ -92,7 +94,7 @@ class _ProductCartProdottoAcquistatoState extends State<ProductCardProdottoAcqui
                               ),
                             ),
                             Text(
-                              "Prezzo totale: "+_product!.prezzo.toString(),
+                              "Prezzo x unità: "+_product!.prezzo.toString(),
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Theme.of(context).primaryColor,
@@ -138,7 +140,7 @@ class _ProductCartProdottoAcquistatoState extends State<ProductCardProdottoAcqui
                           child:ElevatedButton(
                             child: Text('Aggiorna quantita'),
                             onPressed: () {
-                              aggiornaQuantita();
+                              modificaArticolo();
                             },
                             style: ElevatedButton.styleFrom(
                               foregroundColor: Colors.white, backgroundColor: Colors.orangeAccent,
@@ -173,16 +175,56 @@ class _ProductCartProdottoAcquistatoState extends State<ProductCardProdottoAcqui
     );
   }
 
-  void aggiornaQuantita() {
+  void modificaArticolo() {
     //if(_quantita>_product!.quantita!)return;
     print(_quantita);
-    Model.sharedInstance.rimuoviDaCarrello(_product!.prodotto.id, _quantita);
-    //initState();
+    Model.sharedInstance.rimuoviDaCarrello(_product!.prodotto.id, _quantita).then((result){
+      setState(() {
+        if(result == "true"){
+          showDialog(
+            context: context,
+            builder: (context) => MessaggioDialogo(
+              titleText: "Perfetto",
+              bodyText: "Modificato. Riaggiorna la pagina del carrello",
+            ),
+          );
+        }else{
+          showDialog(
+            context: context,
+            builder: (context) => MessaggioDialogo(
+              titleText: "Ooops",
+              bodyText: result,
+            ),
+          );
+        }
+      });
+    });
+    initState();
   }
   void rimuoviArticolo() {
     //if(_quantita>_product!.quantita!)return;
     print(_quantita);
-    Model.sharedInstance.rimuoviDaCarrello(_product!.prodotto.id, 0);
+    Model.sharedInstance.rimuoviDaCarrello(_product!.prodotto.id, 0).then((result){
+      setState(() {
+        if(result == "true"){
+          showDialog(
+            context: context,
+            builder: (context) => MessaggioDialogo(
+              titleText: "Perfetto",
+              bodyText: "Rimosso. Riaggiorna la pagina del carrello",
+            ),
+          );
+        }else{
+          showDialog(
+            context: context,
+            builder: (context) => MessaggioDialogo(
+              titleText: "Ooops",
+              bodyText: result,
+            ),
+          );
+        }
+      });
+    });
     initState();
   }
 

@@ -32,14 +32,13 @@ class Constants {
   static final String STATE_CLUB = "club";
 
   // responses
-  static final String RESPONSE_ERROR_MAIL_PHARMACY_ALREADY_EXISTS = "ERROR_MAIL_PHARMACY_ALREADY_EXISTS";
-  static final String RESPONSE_ERROR_MAIL_USER_ALREADY_EXISTS = "ERROR_MAIL_USER_ALREADY_EXISTS";
+  static final String RESPONSE_ERROR_MAIL_USER_ALREADY_EXISTS = "Errore: la mail usata esiste";
+  static final String RESPONSE_ERROR_KEYCLOAK = "Errore server interno";
 
   // messages
   static final String MESSAGE_CONNECTION_ERROR = "connection_error";
   static final String ERROR_DATE_INVALID="ERROR_INVALID_DATE";
   static final String ERROR_BOOKING_UNAVAILABLE="ERROR_BOOKING_UNAVAILABLE";
-
 
   // links
   static final String LINK_RESET_PASSWORD = "***";

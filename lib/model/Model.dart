@@ -76,7 +76,7 @@ class Model {
       //_restManager.token = "";
       _restManager.token =null;
       params["client_id"] = Constants.CLIENT_ID;
-      //params["client_secret"] = Constants.CLIENT_SECRET;
+      params["client_secret"] = Constants.CLIENT_SECRET;
       params["refresh_token"] = _authenticationData!.refreshToken;
       await _restManager.makePostRequest(Constants.ADDRESS_AUTHENTICATION_SERVER, Constants.REQUEST_LOGOUT, params, type: TypeHeader.urlencoded);
       return true;
@@ -117,11 +117,11 @@ class Model {
     Map<String, String> params = Map();
     params["id"]=id.toString();
     params["quantita"] = quantity.toString();
-    String result = "ERRORE intenro";
+    String result = "ERRORE interno";
     try {
       result = await _restManager.makeGetRequest(Constants.ADDRESS_ECOMMERCE_SERVER, Constants.REQUEST_ADD_CARELLO, params);
-      print("FANCULO"+result);
-      print(result);
+      //print("prova"+result);
+      //print(result);
       //Acquisto a = Acquisto.fromJson(jsonDecode(result));
       if ( result == "") {
         return "Cortesemente accedere";
@@ -134,21 +134,23 @@ class Model {
     }
   }
 
-  Future<bool> rimuoviDaCarrello(int id, int quantity) async {
+  Future<String> rimuoviDaCarrello(int id, int quantity) async {
     Map<String, String> params = Map();
     params["id"]=id.toString();
     params["quantita"] = quantity.toString();
     try {
       String result = await _restManager.makeGetRequest(Constants.ADDRESS_ECOMMERCE_SERVER, Constants.REQUEST_REMOVE_CARELLO, params);
-      Acquisto a = Acquisto.fromJson(jsonDecode(result));
+      return result;
+
+      /*Acquisto a = Acquisto.fromJson(jsonDecode(result));
       if ( a==null ) {
         return false;
       }
       _restManager.token = _authenticationData!.accessToken;
-      return true;
+      return true;*/
     }
     catch (e) {
-      return false; // not the best solution
+      return "false"; // not the best solution
     }
   }
 
@@ -243,7 +245,7 @@ class Model {
   }
 
 
-  Future<Utente?> addUser(DTOUtente user) async {
+  /*Future<Utente?> addUser(DTOUtente user) async {
     try {
       Map<String, String> params = Map();
       params["codiceFiscale"] = user.codiceFiscale;
@@ -275,5 +277,27 @@ class Model {
       print("eccomi2");
       return null; // not the best solution
     }
+  }*/
+
+  Future<String?> addUser(DTOUtente user) async {
+      Map<String, String> params = Map();
+      params["codiceFiscale"] = user.codiceFiscale;
+      params["nome"] = user.nome;
+      params["cognome"] = user.cognome;
+      params["numeroTelefonico"] = user.numeroTelefonico;
+      params["email"] = user.email;
+      params["indirizzo"]=user.indirizzo;
+      params["password"]=user.password;
+      String rawResult = await _restManager.makePostRequest(Constants.ADDRESS_ECOMMERCE_SERVER, Constants.REQUEST_ADD_CLIENTE, params, type: TypeHeader.json);
+
+      print(rawResult);
+      print("prima if");
+
+      if(rawResult == "La email usata esiste"){
+        return Constants.RESPONSE_ERROR_MAIL_USER_ALREADY_EXISTS;
+      }else if(rawResult == "Errore da keycloak")
+        return Constants.RESPONSE_ERROR_KEYCLOAK;
+      else
+        return "true";
   }
 }

@@ -8,6 +8,7 @@ import 'package:front_end_ecommerce/model/objects/DTOUtente.dart';
 import 'package:front_end_ecommerce/model/support/LogInResult.dart';
 import 'package:flutter/material.dart';
 
+import '../../model/support/Constants.dart';
 import '../widgets/MessaggioDialogo.dart';
 
 
@@ -23,7 +24,7 @@ class Registrazione extends StatefulWidget {
 class _Registrazione extends State<Registrazione> {
   bool _adding = false;
   bool _logging =false;
-  Utente ? _justAddedUser;
+  String ? _justAddedUser;
   LogInResult ? _justLoggedUser;
   bool _showMessage = false;
   String _message = '';
@@ -99,12 +100,12 @@ class _Registrazione extends State<Registrazione> {
                 children: [
                   InputField(
                     key:UniqueKey(),
-                    labelText: "Codice fiscale",
+                    labelText: "Codice fiscale*",
                     controller: _codiceFiscaleFiledController,
                   ),
                   InputField(
                     key:UniqueKey(),
-                    labelText: "Nome",
+                    labelText: "Nome*",
                     controller: _firstNameFiledController,
                   ),
                   InputField(
@@ -119,7 +120,7 @@ class _Registrazione extends State<Registrazione> {
                   ),
                   InputField(
                     key:UniqueKey(),
-                    labelText:"Email",
+                    labelText:"Email*",
                     controller: _emailFiledController,
                   ),
                   InputField(
@@ -130,13 +131,13 @@ class _Registrazione extends State<Registrazione> {
                   InputField(
                     isPassword: true,
                     key:UniqueKey(),
-                    labelText:"Password",
+                    labelText:"Password*",
                     controller: _passwordControllerReg,
                   ),
                   InputField(
                     isPassword: true,
                     key:UniqueKey(),
-                    labelText:"Conferma password",
+                    labelText:"Conferma password*",
                     controller: _password2Controller,
                   ),
                   AnimatedOpacity(
@@ -158,8 +159,33 @@ class _Registrazione extends State<Registrazione> {
                     key:UniqueKey(),
                     icon: Icons.how_to_reg_sharp,
                     onPressed: () {
-
-                      _register();
+                      if(_emailFiledController.text == "" || _firstNameFiledController.text == "" || _codiceFiscaleFiledController.text == "" || _passwordControllerReg.text == ""){
+                        showDialog(
+                          context: context,
+                          builder: (context) => MessaggioDialogo(
+                            titleText: "oops",
+                            bodyText: "Inserire i campi obligatori (*)",
+                          ),
+                        );
+                      } else if(!isEmailValid(_emailFiledController.text)){
+                        showDialog(
+                          context: context,
+                          builder: (context) => MessaggioDialogo(
+                            titleText: "oops",
+                            bodyText: "Formato email errato",
+                          ),
+                        );
+                      }else if(_passwordControllerReg.text != _password2Controller.text){
+                          showDialog(
+                            context: context,
+                            builder: (context) => MessaggioDialogo(
+                              titleText: "oops",
+                              bodyText: "Le password non coincidono",
+                            ),
+                          );
+                      } else {
+                        _register();
+                      }
                     },
                   ),
 
@@ -245,19 +271,8 @@ class _Registrazione extends State<Registrazione> {
       _adding = true;
       _justAddedUser = null;
     });
-    if(_passwordControllerReg.text!=_password2Controller.text){
-      showDialog(
-        context: context,
-        builder: (context) => MessaggioDialogo(
-          titleText: "oops",
-          bodyText: "Le password non coincidono",
-        ),
-      );
-      return;
-    }
 
     DTOUtente user = DTOUtente(
-
       codiceFiscale: _codiceFiscaleFiledController.text,
       nome: _firstNameFiledController.text,
       cognome: _lastNameFiledController.text,
@@ -265,7 +280,6 @@ class _Registrazione extends State<Registrazione> {
       numeroTelefonico: _telephoneNumberFiledController.text,
       indirizzo: _addressFiledController.text,
       password: _passwordControllerReg.text,
-
     );
 
     Model.sharedInstance.addUser(user).then((result) {
@@ -274,21 +288,33 @@ class _Registrazione extends State<Registrazione> {
         _adding = false;
         _justAddedUser = result;
 
-        String message;
-        if (result != null) {
+        print(result);
+
+
+        if (result == Constants.RESPONSE_ERROR_MAIL_USER_ALREADY_EXISTS) {
           showDialog(
             context: context,
-            builder: (context) => MessaggioDialogo(
-              titleText: "Perfetto",
-              bodyText: "Utente registrato",
-            ),
+            builder: (context) =>
+                MessaggioDialogo(
+                  titleText: "Ooops",
+                  bodyText: "Utente NON registrato\nEmail usata esistente",
+                ),
+          );
+        }else if (result == Constants.RESPONSE_ERROR_KEYCLOAK) {
+          showDialog(
+            context: context,
+            builder: (context) =>
+                MessaggioDialogo(
+                  titleText: "Ooops",
+                  bodyText: "Utente NON registrato\nErrore intenro server",
+                ),
           );
         } else {
           showDialog(
             context: context,
             builder: (context) => MessaggioDialogo(
-              titleText: "Ooops",
-              bodyText: "Utente NON registrato",
+              titleText: "Perfetto",
+              bodyText: "Utente registrato, accedere",
             ),
           );
         }
@@ -338,5 +364,10 @@ class _Registrazione extends State<Registrazione> {
         }
       });
     });
+  }
+
+  bool isEmailValid(String email) {
+    final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+    return emailRegex.hasMatch(email);
   }
 }

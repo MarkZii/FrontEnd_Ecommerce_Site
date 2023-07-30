@@ -36,13 +36,13 @@ class ProdottoSpecificheAcquisto extends StatelessWidget {
                     Text(
                       "Nome: "+prodotto.prodotto.nome,
                       style: TextStyle(
-                        fontSize: 28,
+                        fontSize: 22,
                         color: Theme.of(context).primaryColor,
                       ),
                     ),
 
                     Text(
-                      "CB: "+prodotto.prodotto.codiceBarre,
+                      "Codice a barre: "+prodotto.prodotto.codiceBarre,
                       style: TextStyle(
                         fontSize: 15,
                         color: Theme.of(context).primaryColor,
@@ -56,7 +56,7 @@ class ProdottoSpecificheAcquisto extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "Costo: "+prodotto.prezzo.toString(),
+                      "Prezzo x unità: "+prodotto.prezzo.toString(),
                       style: TextStyle(
                         fontSize: 15,
                         color: Theme.of(context).primaryColor,

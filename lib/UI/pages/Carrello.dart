@@ -48,7 +48,7 @@ class _CarrelloState extends State<Carrello> {
         if(_products.length!=0){
           totale=0;
           for(ProdottoAcquisto prod in result){
-            this.totale=this.totale+prod.prodotto.prezzo;
+            this.totale=this.totale+(prod.prezzo*prod.quantita);
           }
         }else{
           this.totale=0;
@@ -71,7 +71,7 @@ class _CarrelloState extends State<Carrello> {
         showDialog(
           context: context,
           builder: (context) => MessaggioDialogo(
-            titleText: "Message",
+            titleText: "Messaggio",
             bodyText: result,
           ),
         );
@@ -82,7 +82,6 @@ class _CarrelloState extends State<Carrello> {
           //print("result: "+result.toString());
           message = 'Acquisto NON eseguito';
         }*/
-
         //mostraMessaggioTemporaneo(result);
       });
     });
@@ -103,17 +102,14 @@ class _CarrelloState extends State<Carrello> {
             onPressed: () {
               _search();
               print(_products);
-
             },
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white, backgroundColor: Colors.orangeAccent,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(0.0),
               ),
-
             ),
           ),
-
         ],
       ),
     );
@@ -123,7 +119,6 @@ class _CarrelloState extends State<Carrello> {
     return Padding(
         padding: EdgeInsets.all(20), // Aggiungi il padding desiderato
         child: IconButton(
-
           icon: Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
@@ -175,7 +170,6 @@ class _CarrelloState extends State<Carrello> {
           ),
         ],
       ),
-
     );
   }
 

@@ -6,9 +6,10 @@ import 'package:front_end_ecommerce/UI/pages/Registrazione.dart';
 import 'package:flutter/material.dart';
 import '../../UI/pages/ChiSiamo.dart';
 import 'package:front_end_ecommerce/model/support/Constants.dart';
+import '../../model/Model.dart';
+import '../widgets/MessaggioDialogo.dart';
 import 'ChiSiamo2.dart';
 import 'User.dart';
-//import 'Acquisti.dart';
 
 
 class Home extends StatefulWidget {
@@ -28,7 +29,7 @@ class _LayoutState extends State<Home> {
     this.title = Constants.APP_NAME;
   }
 
-  void mostraMessaggioTemporaneo(String messaggio) {
+  /*void mostraMessaggioTemporaneo(String messaggio) {
     setState(() {
       _message = messaggio;
       _showMessage = true;
@@ -39,7 +40,7 @@ class _LayoutState extends State<Home> {
         _showMessage = false;
       });
     });
-  }
+  }*/
 
   /**
    * Nota che uno scaffold contiene un appBar e un
@@ -51,6 +52,7 @@ class _LayoutState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    var i =0;
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -83,14 +85,44 @@ class _LayoutState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.end, // Allineamento orizzontale a sinistra
                   children: [
                     IconButton(
-                        icon: Icon(Icons.login),
+                      icon: Icon(Icons.login),
+                      color: Colors.grey,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Registrazione(key: UniqueKey(),)),
+                        );
+                      }),
+                    IconButton(
+                        icon: Icon(Icons.logout),
                         color: Colors.grey,
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Registrazione(key: UniqueKey(),)),
-                          );
+                          Model.sharedInstance.logOut().then((result) {
+                            setState(() {
+                              String message;
+                              if (result == true && i==0) {
+                                //print("result: "+result.toString());
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => MessaggioDialogo(
+                                    titleText: "Perfetto",
+                                    bodyText: "LogOut effettuato.",
+                                  ),
+                                );
+                              } else {
+                                //print("result: "+result.toString());
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => MessaggioDialogo(
+                                    titleText: "Ooops",
+                                    bodyText: "Per favore accedere.",
+                                  ),
+                                );
+                              }
+                            });
+                          });
                         }),
+
                     IconButton(
                         icon: Icon(Icons.shopping_cart_checkout),
                         color: Colors.grey,
@@ -131,7 +163,7 @@ class _LayoutState extends State<Home> {
           ),
           bottom: TabBar(
             indicatorColor: Colors.orangeAccent,
-            /**
+            /*
              * La tabBar rappresenta la barra delle schede, e mostra le etichette
              * alle pagine. E viene visualizzato nel bottom dell'appbar.
              */
@@ -146,7 +178,7 @@ class _LayoutState extends State<Home> {
           ),
         ),
           body: TabBarView(
-          /**
+          /*
            * Dentro TabBarView viene rappresentato il contenuto di ciascuna scheda
            * Questa cosa è fatta in ordine di scrittura.
            * QUINDI NOTA COME ALL'INIZIO VIENE FATTO VEDERE SOLAMENTE LE ICONE PRESENTI
@@ -162,5 +194,4 @@ class _LayoutState extends State<Home> {
       ),
     );
   }
-
 }

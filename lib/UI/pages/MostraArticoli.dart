@@ -88,7 +88,7 @@ class _SearchState extends State<MostraArticoli> {
                   child: InputField(
                     key: UniqueKey(),
                     //labelText: AppLocalizations.of(context).translate("search").capitalize,
-                    labelText: "Search",
+                    labelText: "Inserisci 'nome' o 'categoria' prodotto da cercare",
                     controller: _searchFiledController,
                     onSubmit: (value) {
                       _search();

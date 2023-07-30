@@ -6,10 +6,89 @@ import 'package:flutter/material.dart';
 class ProdottoSpecifiche extends StatelessWidget {
   final Prodotto prodotto;
 
-
   ProdottoSpecifiche({required Key key, required this.prodotto}) : super(key: key);
 
   @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+        top: 3.0,
+        left: 30.0,
+        right: 30.0,
+        bottom: 3.0,
+      ),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(0.0),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(10),
+          child: Padding(
+            padding: EdgeInsets.all(10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Nome: "+prodotto.nome,
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+
+                        Text(
+                          "Cod. a barre: "+prodotto.codiceBarre,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                        Text(
+                          "Quantità disponibile: "+prodotto.quantita.toString(),
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                        Text(
+                          "Categoria: "+prodotto.categoria.nome,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                    WidgetAcquisto(
+                      key: UniqueKey(),
+                      id: prodotto.id,
+                      quantita: prodotto.quantita,
+                      codiceBarre: prodotto.codiceBarre,
+                      prezzo: prodotto.prezzo!,
+                    ),
+
+                  ],
+                ),
+                Text(
+                  "Descrizione: "+prodotto.descrizione,
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+  /*@override
   Widget build(BuildContext context) {
     return Padding(
         padding: EdgeInsets.only(
@@ -35,13 +114,13 @@ class ProdottoSpecifiche extends StatelessWidget {
                     Text(
                       "Nome: "+prodotto.nome,
                       style: TextStyle(
-                        fontSize: 28,
+                        fontSize: 22,
                         color: Theme.of(context).primaryColor,
                       ),
                     ),
 
                     Text(
-                      "CB: "+prodotto.codiceBarre,
+                      "Cod. a barre: "+prodotto.codiceBarre,
                       style: TextStyle(
                         fontSize: 15,
                         color: Theme.of(context).primaryColor,
@@ -72,11 +151,10 @@ class ProdottoSpecifiche extends StatelessWidget {
                 )
               ],
             ),
-          )
+          ),
         ),
       ),
     );
-  }
-
+  }*/
 
 }

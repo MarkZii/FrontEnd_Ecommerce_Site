@@ -7,13 +7,13 @@ class Prodotto {
   String codiceBarre;
   double prezzo;
   int quantita;
-  String? descrizione;
+  String descrizione;
   Categoria categoria;
   double versione;
 
 
   Prodotto({ required this.id, required this.nome, required this.codiceBarre, required this.prezzo, required this.quantita,
-    this.descrizione, required this.categoria, required this.versione});
+    required this.descrizione, required this.categoria, required this.versione});
 
   factory Prodotto.fromJson(Map<String, dynamic> json) {
     return Prodotto(
